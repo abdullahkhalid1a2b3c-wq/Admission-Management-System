@@ -1,0 +1,143 @@
+[
+  {
+    "id": 1783936451447,
+    "fullName": "Muhammad ",
+    "fatherName": "ali",
+    "gender": "Male",
+    "dob": "2008-06-10",
+    "email": "muhammad123@gmail.com",
+    "phone": "0345454545",
+    "status": "Pending"
+  },
+  {
+    "id": 1783937608357,
+    "fullName": "zia",
+    "fatherName": "ali",
+    "gender": "Male",
+    "dob": "2000-04-04",
+    "email": "rbfhbewtohb@gmial.com",
+    "phone": "03454544547",
+    "status": "Pending"
+  },
+  {
+    "id": 1783939899577,
+    "fullName": "hhhhh",
+    "fatherName": "uuuuuu",
+    "gender": "Female",
+    "dob": "2026-07-31",
+    "email": "uhuuuu@gmail.com",
+    "phone": "888899988989",
+    "status": "Pending"
+  },
+  {
+    "id": 1783940185482,
+    "fullName": "hhhhh",
+    "fatherName": "uuuuuu",
+    "gender": "",
+    "dob": "2026-07-31",
+    "email": "uhuuuu@gmail.com",
+    "phone": "888899988989",
+    "status": "Pending"
+  },
+  {
+    "id": 1783940223400,
+    "fullName": "hhhhh",
+    "fatherName": "uuuuuu",
+    "gender": "",
+    "dob": "2026-07-31",
+    "email": "uhuuuu@gmail.com",
+    "phone": "888899988989",
+    "status": "Pending"
+  },
+  {
+    "id": 1783946136789,
+    "fullName": "hfqwwefwf",
+    "fatherName": "uuuuuurrr",
+    "gender": "Male",
+    "dob": "2017-06-13",
+    "email": "uhuuuu@gmail.com",
+    "phone": "01234567896",
+    "status": "Pending"
+  },
+  {
+    "id": 1784002427837,
+    "fullName": "hfqeeeer",
+    "fatherName": "uuherbfh",
+    "gender": "Female",
+    "dob": "2017-06-13",
+    "email": "utybvuu@gmail.com",
+    "phone": "01233567896",
+    "status": "Pending"
+  },
+  {
+    "id": 1784005060678,
+    "fullName": "hfrnjfernign",
+    "fatherName": "uuhgggg",
+    "gender": "Male",
+    "dob": "2011-02-01",
+    "email": "jklhfvuu@gmail.com",
+    "phone": "01233588896",
+    "status": "Pending"
+  },
+  {
+    "id": 1784005584176,
+    "fullName": "hfrnjfernign",
+    "fatherName": "uuhgggg",
+    "gender": "",
+    "dob": "2011-02-01",
+    "email": "jklhfvuu@gmail.com",
+    "phone": "01233588896",
+    "status": "Pending"
+  },
+  {
+    "id": 1784005802655,
+    "fullName": "hfrnjfernign",
+    "fatherName": "uuhgggg",
+    "gender": "Male",
+    "dob": "2011-02-01",
+    "email": "jklhfvuu@gmail.com",
+    "phone": "01233588896",
+    "status": "Pending"
+  },
+  {
+    "id": 1784005968415,
+    "fullName": "",
+    "fatherName": "",
+    "gender": "",
+    "dob": "",
+    "email": "",
+    "phone": "",
+    "status": "Pending"
+  },
+  {
+    "id": 1784006112541,
+    "fullName": "frfqwf",
+    "fatherName": "wfwrf",
+    "gender": "Male",
+    "dob": "2020-01-28",
+    "email": "wfrfq@gmail.com",
+    "phone": "09876543210",
+    "status": "Pending"
+  },
+  {
+    "id": 1784006581943,
+    "fullName": "frfqwf",
+    "fatherName": "wfwrfwdwsd",
+    "gender": "Male",
+    "dob": "2020-01-28",
+    "email": "wfrfq@gmail.com",
+    "phone": "09876543210",
+    "matricBoard": "aaa",
+    "matricRollNo": "56",
+    "matricTotalMarks": 1000,
+    "matricObtainedMarks": 777,
+    "fscBoard": "hhhh",
+    "fscRollNo": "777",
+    "fscTotalMarks": 9995,
+    "fscObtainedMarks": 777,
+    "department": "",
+    "session": "morning",
+    "campus": "mian",
+    "status": "Pending"
+  }
+]
