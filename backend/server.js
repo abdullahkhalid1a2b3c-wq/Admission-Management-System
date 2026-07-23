@@ -1,7 +1,10 @@
+require("dotenv").config();
+
+
+
 const express = require("express");
 const cors = require("cors");
 require("./config/db");
-require("dotenv").config();
 const admissionRoutes = require("./routes/admissionRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const studentRoutes=require("./routes/studentRoutes");
