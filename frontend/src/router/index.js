@@ -9,7 +9,7 @@ const routes = [
 
     {
         path: "/",
-        redirect: "/admin/dashboard"
+        redirect: "/student/login"
     },
 
     {

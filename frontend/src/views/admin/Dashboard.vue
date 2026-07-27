@@ -1,115 +1,121 @@
 <template>
-
-<div>
-
-    <h1>Welcome Admin </h1>
-
-    <p>Admission Management Dashboard </p>
-
-    <div class="cards">
-
-
-        <DashboardCard
-            title="Total Students"
-            :value="stats.totalStudents"
-        />
-
-            <DashboardCard
-            title="Total Applications"
-            :value="stats.total"
-        />
-        
-        
-        
-
-        <DashboardCard
-            title="Pending"
-            :value="stats.pending"
-        />
-
-        <DashboardCard
-            title="Approved"
-            :value="stats.approved"
-        />
-
-        <DashboardCard
-            title="Rejected"
-            :value="stats.rejected"
-        />
-
+  <div class="admin-dashboard-page">
+    <div class="page-header">
+      <div>
+        <h1>Dashboard Overview</h1>
+        <p class="page-subtitle">Real-time statistics & admission activity</p>
+      </div>
+      <div class="header-badge">
+        <span>Session 2026</span>
+      </div>
     </div>
 
+    <!-- Stats Cards Grid -->
+    <div class="stats-grid">
+      <DashboardCard title="Total Students" :number="totalStudents" colorClass="indigo">
+        <template #icon>
+          <span>👥</span>
+        </template>
+      </DashboardCard>
+
+      <DashboardCard title="Total Applications" :number="totalApplications" colorClass="blue">
+        <template #icon>
+          <span>📄</span>
+        </template>
+      </DashboardCard>
+
+      <DashboardCard title="Pending Applications" :number="pendingApplications" colorClass="amber">
+        <template #icon>
+          <span>⏳</span>
+        </template>
+      </DashboardCard>
+
+      <DashboardCard title="Approved Applications" :number="approvedApplications" colorClass="emerald">
+        <template #icon>
+          <span>✓</span>
+        </template>
+      </DashboardCard>
+
+      <DashboardCard title="Rejected Applications" :number="rejectedApplications" colorClass="rose">
+        <template #icon>
+          <span>✕</span>
+        </template>
+      </DashboardCard>
+    </div>
+
+    <!-- Recent Applications Table -->
     <RecentApplications />
-
-    <QuickActions />
-
-</div>
-
+  </div>
 </template>
 
 <script setup>
-
-import { reactive, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
-
 import DashboardCard from "../../components/admin/DashboardCard.vue";
 import RecentApplications from "../../components/admin/RecentApplications.vue";
 
-const stats = reactive({
-    totalStudents: 0,
-    total: 0,
-    pending: 0,
-    approved: 0,
-    rejected: 0
+const totalStudents = ref(0);
+const totalApplications = ref(0);
+const pendingApplications = ref(0);
+const approvedApplications = ref(0);
+const rejectedApplications = ref(0);
 
-});
-
-async function getDashboardStats() {
-
-    try {
-
-        const response = await axios.get(
-            "http://localhost:3000/dashboard"
-        );
-
-        console.log(response.data);
-
-        stats.totalStudents = response.data.totalStudents;
-        stats.total = response.data.total;
-        stats.pending = response.data.pending;
-        stats.approved = response.data.approved;
-        stats.rejected = response.data.rejected;
-
-    }
-
-    catch (error) {
-
-        console.log(error);
-
-    }
-
+async function loadStats() {
+  try {
+    const response = await axios.get("http://localhost:3000/dashboard");
+    totalStudents.value = response.data.totalStudents || 0;
+    totalApplications.value = response.data.total || 0;
+    pendingApplications.value = response.data.pending || 0;
+    approvedApplications.value = response.data.approved || 0;
+    rejectedApplications.value = response.data.rejected || 0;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 onMounted(() => {
-
-    getDashboardStats();
-
+  loadStats();
 });
-
 </script>
 
 <style scoped>
-
-.cards{
-
-    display:grid;
-
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
-    gap:20px;
-
-    margin:30px 0;
-
+.admin-dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.page-subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.header-badge {
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.825rem;
+  font-weight: 700;
+  border: 1px solid #dbeafe;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
 </style>
