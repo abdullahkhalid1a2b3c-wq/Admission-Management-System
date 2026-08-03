@@ -4,12 +4,10 @@ export async function updateAdmissionStatus(id, action) {
 
     const response = await axios.patch(
 
-        `http://localhost:3000/admissions/${id}/status`,
+        `${process.env.BACKEND_URL}/admissions/${id}/status`,
 
         {
-
             action
-
         }
 
     );
@@ -17,4 +15,3 @@ export async function updateAdmissionStatus(id, action) {
     return response.data;
 
 }
-
