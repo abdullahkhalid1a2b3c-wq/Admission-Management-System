@@ -1,4 +1,4 @@
-import StudentLayout from "../layouts/StudentLayout.vue"
+import StudentLayout from "../Layouts/StudentLayout.vue"
 
 import StudentDashboard from "../views/student/Dashboard.vue"
 import ApplyAdmission from "../views/student/ApplyAdmission.vue"
