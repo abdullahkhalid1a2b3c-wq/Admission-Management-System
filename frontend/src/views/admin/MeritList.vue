@@ -64,7 +64,7 @@ const meritList = ref([]);
 
 async function getMeritList() {
   try {
-    const response = await axios.get("http://localhost:3000/admissions/merit-list");
+    const response = await axios.get("https://admission-management-system-production-e65e.up.railway.app/admissions/merit-list");
     meritList.value = response.data;
   } catch (error) {
     console.log(error);

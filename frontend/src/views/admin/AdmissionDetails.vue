@@ -182,7 +182,7 @@ async function getAdmissionDetails() {
 
         const response = await axios.get(
 
-            `http://localhost:3000/admissions/${route.params.id}`
+            `https://admission-management-system-production-e65e.up.railway.app/admissions/${route.params.id}`
 
         );
 
@@ -204,7 +204,7 @@ async function updateStatus(status) {
 
             await axios.post(
 
-                "http://localhost:5000/admissions/approve",
+                "https://clever-ambition-production-d00e.up.railway.app/admissions",
 
                 {
 
@@ -220,7 +220,7 @@ async function updateStatus(status) {
 
             await axios.post(
 
-                "http://localhost:5000/admissions/reject",
+                "https://clever-ambition-production-d00e.up.railway.app/admissions",
 
                 {
 

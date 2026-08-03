@@ -210,7 +210,7 @@ async function submitApplication() {
   errorMessage.value = "";
   try {
     const response = await axios.post(
-      "http://localhost:3000/admissions",
+      "https://admission-management-system-production-e65e.up.railway.app/admissions",
       application
     );
     successMessage.value = "Admission Submitted Successfully!";

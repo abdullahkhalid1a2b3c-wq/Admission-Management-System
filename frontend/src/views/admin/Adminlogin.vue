@@ -59,7 +59,7 @@ const errorMessage = ref("");
 async function loginAdmin() {
   errorMessage.value = "";
   try {
-    const response = await axios.post("http://localhost:3000/admin/login", login);
+    const response = await axios.post("http://localhost:https://admission-management-system-production-e65e.up.railway.app/admin/login", login);
     localStorage.setItem("adminToken", response.data.token);
     router.push("/admin/dashboard");
   } catch (error) {

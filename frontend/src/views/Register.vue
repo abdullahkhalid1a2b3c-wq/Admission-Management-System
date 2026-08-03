@@ -111,7 +111,7 @@ async function registerStudent(){
   errorMessage.value = ""
   try{
     const response = await axios.post(
-      "http://localhost:3000/students/register",
+      "https://admission-management-system-production-e65e.up.railway.app/students/register",
       student
     )
     successMessage.value = response.data.message || "Registration Successful! Redirecting to login..."

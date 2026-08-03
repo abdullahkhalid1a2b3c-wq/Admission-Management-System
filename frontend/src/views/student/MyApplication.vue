@@ -79,7 +79,7 @@ async function loadApplication(){
   const token = localStorage.getItem("token");
   try {
     const response = await axios.get(
-      "http://localhost:3000/students/my-application",
+      "https://admission-management-system-production-e65e.up.railway.app/students/my-application",
       {
         headers: {
           Authorization: `Bearer ${token}`

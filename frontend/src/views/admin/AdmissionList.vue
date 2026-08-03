@@ -61,7 +61,7 @@ const admissions = ref([]);
 
 async function getAdmissions() {
   try {
-    const response = await axios.get("http://localhost:3000/admissions");
+    const response = await axios.get("https://admission-management-system-production-e65e.up.railway.app/admissions");
     admissions.value = response.data;
   } catch (error) {
     console.log(error);
@@ -70,7 +70,7 @@ async function getAdmissions() {
 
 async function updateStatus(id, status) {
   try {
-    await axios.patch(`http://localhost:3000/admissions/${id}/status`, { status });
+    await axios.patch(`https://admission-management-system-production-e65e.up.railway.app/admissions/${id}/status`, { status });
     getAdmissions();
   } catch (error) {
     console.log(error);

@@ -58,7 +58,7 @@ async function loadRecentApplications() {
     console.log("Fetching Recent Applications");
     try {
         const response = await axios.get(
-            "http://localhost:3000/dashboard/recent-applications"
+            "https://admission-management-system-production-e65e.up.railway.app/dashboard/recent-applications"
         );
         console.log(response.data);
 

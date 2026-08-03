@@ -111,13 +111,13 @@ const eligibility = ref([]);
 
 async function loadReports() {
   try {
-    const admissionResponse = await axios.get("http://localhost:3000/reports/admission");
+    const admissionResponse = await axios.get("https://admission-management-system-production-e65e.up.railway.app/reports/admission");
     admissionReport.value = admissionResponse.data;
 
-    const departmentResponse = await axios.get("http://localhost:3000/reports/departments");
+    const departmentResponse = await axios.get("https://admission-management-system-production-e65e.up.railway.app/reports/departments");
     departments.value = departmentResponse.data;
 
-    const eligibilityResponse = await axios.get("http://localhost:3000/reports/eligibility");
+    const eligibilityResponse = await axios.get("https://admission-management-system-production-e65e.up.railway.app/reports/eligibility");
     eligibility.value = eligibilityResponse.data;
   } catch (error) {
     console.log(error);

@@ -62,7 +62,7 @@ const rejectedApplications = ref(0);
 
 async function loadStats() {
   try {
-    const response = await axios.get("http://localhost:3000/dashboard");
+    const response = await axios.get("https://admission-management-system-production-e65e.up.railway.app/dashboard");
     totalStudents.value = response.data.totalStudents || 0;
     totalApplications.value = response.data.total || 0;
     pendingApplications.value = response.data.pending || 0;
