@@ -351,86 +351,98 @@ const updateAdmission = (req, res) => {
     });
 
 };
-
 const updateAdmissionStatus = (req, res) => {
 
     const id = req.params.id;
 
-    const { status } = req.body;
+    const { action } = req.body;
 
-    const sql = `
-        UPDATE admissions
-        SET status=?
-        WHERE id=?
-    `;
+    // Get Admission
+    const getSql = "SELECT * FROM admissions WHERE id=?";
 
-    db.query(sql, [status, id], (err) => {
+    db.query(getSql, [id], (err, result) => {
 
         if (err) {
             return res.status(500).json(err);
         }
 
-        res.json({
-            message: "Status Updated Successfully"
+        if (result.length === 0) {
+
+            return res.status(404).json({
+
+                message: "Admission Not Found"
+
+            });
+
+        }
+
+        const admission = result[0];
+
+        let status;
+
+        // ===========================
+        // Backend makes the decision
+        // ===========================
+
+        if (action === "APPROVE") {
+
+            if (admission.eligibility === "Eligible") {
+
+                status = "Approved";
+
+            } else {
+
+                status = "Rejected";
+
+            }
+
+        }
+
+        else if (action === "REJECT") {
+
+            status = "Rejected";
+
+        }
+
+        else {
+
+            return res.status(400).json({
+
+                message: "Invalid Action"
+
+            });
+
+        }
+
+        // Update Database
+
+        const updateSql = `
+
+            UPDATE admissions
+
+            SET status=?
+
+            WHERE id=?
+
+        `;
+
+        db.query(updateSql, [status, id], (err) => {
+
+            if (err) {
+
+                return res.status(500).json(err);
+
+            }
+
+            res.json({
+
+                message: "Status Updated Successfully",
+
+                status
+
+            });
+
         });
-
-    });
-
-};
-
-// =======================
-// DELETE ADMISSION
-// =======================
-const deleteAdmission = (req, res) => {
-
-    const id = req.params.id;
-
-    const sql = "DELETE FROM admissions WHERE id=?";
-
-    db.query(sql, [id], (err) => {
-
-        if (err) {
-            return res.status(500).json(err);
-        }
-
-        res.json({
-
-            message: "Admission Deleted Successfully"
-
-        });
-
-    });
-
-};
-
-
-const getMeritList = (req, res) => {
-
-    const sql = `
-
-        SELECT
-            id,
-            fullName,
-            department,
-            merit,
-            eligibility,
-            status
-
-        FROM admissions
-
-        WHERE eligibility = 'Eligible'
-
-        ORDER BY merit DESC
-
-    `;
-
-    db.query(sql, (err, result) => {
-
-        if (err) {
-            return res.status(500).json(err);
-        }
-
-        res.json(result);
 
     });
 
@@ -442,8 +454,8 @@ module.exports = {
     getAdmissionById,
     addAdmission,
     updateAdmission,
-    updateAdmissionStatus,
-    deleteAdmission,
-      getMeritList
+    updateAdmissionStatus
+    // deleteAdmission
+    //   getMeritList
 
 };

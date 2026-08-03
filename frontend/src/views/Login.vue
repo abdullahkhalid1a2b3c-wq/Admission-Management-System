@@ -44,10 +44,21 @@
         </div>
       </div>
 
-      <button type="submit" class="submit-btn">
-        <span>Login to Portal</span>
-        <span class="btn-arrow">→</span>
-      </button>
+    <button
+      type="submit"
+      class="submit-btn"
+      :disabled="isLoading"
+    >
+      <span v-if="isLoading">
+        Logging In...
+      </span>
+
+      <span v-else>
+        Login to Portal
+      </span>
+
+      <span class="btn-arrow">→</span>
+    </button>
     </form>
 
     <div class="auth-footer">
@@ -60,40 +71,89 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { reactive, ref } from "vue"
-import axios from "axios"
-import { useRouter } from "vue-router"
+import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
 
-const router = useRouter()
+const router = useRouter();
 
 const login = reactive({
-  email: "",
-  password: ""
-})
 
-const errorMessage = ref("")
+  email: "",
+
+  password: ""
+
+});
+
+const errorMessage = ref("");
+
+const isLoading = ref(false);
 
 async function loginStudent() {
-    errorMessage.value = ""
-    try {
-        const response = await axios.post(
-            "http://localhost:3000/students/login",
-            login
-        );
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem(
-            "student",
-            JSON.stringify(response.data.student)
-        );
-        router.push("/student/dashboard");
-    } catch (error) {
-        console.log("ERROR:", error);
-        errorMessage.value = "Invalid Email or Password";
-    }
+
+  errorMessage.value = "";
+
+  isLoading.value = true;
+
+  try {
+
+    // Request goes to XState Server
+    const response = await axios.post(
+
+      "http://localhost:5000/login",
+
+      {
+
+        email: login.email,
+
+        password: login.password
+
+      }
+
+    );
+
+    // Save Login Data
+    localStorage.setItem(
+
+      "token",
+
+      response.data.token
+
+    );
+
+    localStorage.setItem(
+
+      "student",
+
+      JSON.stringify(response.data.student)
+
+    );
+
+    // Go to Dashboard
+    router.push("/student/dashboard");
+
+  }
+
+  catch (err) {
+
+    errorMessage.value =
+
+      err.response?.data?.message ||
+
+      "Invalid Email or Password";
+
+  }
+
+  finally {
+
+    isLoading.value = false;
+
+  }
+
 }
 </script>
+
 
 <style scoped>
 .auth-card {
@@ -272,4 +332,12 @@ input:focus {
 .admin-link:hover {
   text-decoration: underline !important;
 }
+
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
 </style>

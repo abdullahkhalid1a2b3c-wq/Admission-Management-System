@@ -7,16 +7,16 @@ const {
     getAdmissionById,
     addAdmission,
     updateAdmission,
-    updateAdmissionStatus,
-    deleteAdmission,
-    getMeritList
+    updateAdmissionStatus
+    // deleteAdmission,
+    // getMeritList
 } = require("../controllers/admissionController");
 
 // GET ALL
 router.get("/", getAdmissions);
 
 // MERIT LIST  (must come BEFORE /:id)
-router.get("/merit-list", getMeritList);
+// router.get("/merit-list", getMeritList);
 
 // GET SINGLE
 router.get("/:id", getAdmissionById);
@@ -31,6 +31,6 @@ router.put("/:id", updateAdmission);
 router.patch("/:id/status", updateAdmissionStatus);
 
 // DELETE
-router.delete("/:id", deleteAdmission);
+// router.delete("/:id", deleteAdmission);
 
 module.exports = router;

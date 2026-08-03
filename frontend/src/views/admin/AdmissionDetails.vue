@@ -173,33 +173,87 @@ import axios from "axios";
 
 const route = useRoute();
 const router = useRouter();
+
 const application = ref(null);
 
 async function getAdmissionDetails() {
-  const id = route.params.id;
-  try {
-    const response = await axios.get(`http://localhost:3000/admissions/${id}`);
-    application.value = response.data;
-  } catch (error) {
-    console.log(error);
-  }
+
+    try {
+
+        const response = await axios.get(
+
+            `http://localhost:3000/admissions/${route.params.id}`
+
+        );
+
+        application.value = response.data;
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
 }
 
 async function updateStatus(status) {
-  const id = route.params.id;
-  try {
-    await axios.patch(`http://localhost:3000/admissions/${id}/status`, { status });
-    getAdmissionDetails();
-  } catch (error) {
-    console.log(error);
-  }
+
+    try {
+
+        if (status === "Approved") {
+
+            await axios.post(
+
+                "http://localhost:5000/admissions/approve",
+
+                {
+
+                    id: route.params.id
+
+                }
+
+            );
+
+        }
+
+        else {
+
+            await axios.post(
+
+                "http://localhost:5000/admissions/reject",
+
+                {
+
+                    id: route.params.id
+
+                }
+
+            );
+
+        }
+
+        // Refresh application details
+        await getAdmissionDetails();
+
+        // Go back to list   
+        router.push("/admin/admissions");
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+    }
+
 }
 
 onMounted(() => {
-  getAdmissionDetails();
+
+    getAdmissionDetails();
+
 });
 </script>
-
 <style scoped>
 .details-page {
   display: flex;
