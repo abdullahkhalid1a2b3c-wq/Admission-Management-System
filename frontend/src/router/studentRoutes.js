@@ -5,7 +5,7 @@ import ApplyAdmission from "../views/student/ApplyAdmission.vue"
 import MyApplication from "../views/student/MyApplication.vue"
 import Profile from "../views/student/Profile.vue"
 import Register from "../views/Register.vue"
-import login from "../views/Login.vue"
+import Login from "../views/Login.vue"
 export default {
 
     path: "/student",
