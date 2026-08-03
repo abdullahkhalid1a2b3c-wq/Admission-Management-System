@@ -12,7 +12,7 @@ const adminRoutes = require("./routes/adminRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const app = express();
 
-const PORT = 3000;
+
 
 // Middleware
 app.use(cors());
@@ -29,8 +29,9 @@ app.get("/", (req, res) => {
     res.send(" Backend Running...");
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
