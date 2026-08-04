@@ -110,8 +110,9 @@ async function registerStudent(){
   successMessage.value = ""
   errorMessage.value = ""
   try{
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
     const response = await axios.post(
-      "https://admission-management-system-production-e65e.up.railway.app/students/register",
+      `${baseURL}/students/register`,
       student
     )
     successMessage.value = response.data.message || "Registration Successful! Redirecting to login..."

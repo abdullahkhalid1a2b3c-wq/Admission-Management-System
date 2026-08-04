@@ -59,15 +59,17 @@ const errorMessage = ref("");
 async function loginAdmin() {
   errorMessage.value = "";
   try {
-   const response = await axios.post(
-  "https://admission-management-system-production-e65e.up.railway.app/admin/login",
-  login
-);
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    const response = await axios.post(
+      `${baseURL}/admin/login`,
+      login
+    );
     localStorage.setItem("adminToken", response.data.token);
+    localStorage.setItem("token", response.data.token);
     router.push("/admin/dashboard");
   } catch (error) {
     console.log(error);
-    errorMessage.value = "Invalid Email or Password";
+    errorMessage.value = error.response?.data?.message || "Invalid Email or Password";
   }
 }
 </script>

@@ -177,59 +177,53 @@ const router = useRouter();
 const application = ref(null);
 
 async function getAdmissionDetails() {
-
+    const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
     try {
-
+        const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
         const response = await axios.get(
-
-            `https://admission-management-system-production-e65e.up.railway.app/admissions/${route.params.id}`
-
+            `${baseURL}/admissions/${route.params.id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
         );
-
         application.value = response.data;
-
     } catch (error) {
-
         console.log(error);
-
     }
-
 }
 
 async function updateStatus(status) {
-
+    const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
     try {
-
         if (status === "Approved") {
-
             await axios.post(
-
-                "https://clever-ambition-production-d00e.up.railway.app/admissions",
-
+                `${baseURL}/admissions/approve`,
                 {
-
-                    id: route.params.id
-
+                    id: route.params.id,
+                    action: "APPROVE"
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-
             );
-
-        }
-
-        else {
-
+        } else {
             await axios.post(
-
-                "https://clever-ambition-production-d00e.up.railway.app/admissions",
-
+                `${baseURL}/admissions/reject`,
                 {
-
-                    id: route.params.id
-
+                    id: route.params.id,
+                    action: "REJECT"
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-
             );
-
         }
 
         // Refresh application details
@@ -237,15 +231,9 @@ async function updateStatus(status) {
 
         // Go back to list   
         router.push("/admin/admissions");
-
-    }
-
-    catch (error) {
-
+    } catch (error) {
         console.log(error);
-
     }
-
 }
 
 onMounted(() => {

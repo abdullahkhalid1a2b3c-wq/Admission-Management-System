@@ -56,9 +56,16 @@ const applications = ref([]);
 
 async function loadRecentApplications() {
     console.log("Fetching Recent Applications");
+    const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
     try {
+        const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
         const response = await axios.get(
-            "https://admission-management-system-production-e65e.up.railway.app/dashboard/recent-applications"
+            `${baseURL}/dashboard/recent-applications`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
         );
         console.log(response.data);
 

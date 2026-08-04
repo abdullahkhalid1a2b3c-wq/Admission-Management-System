@@ -208,10 +208,22 @@ const application = reactive({
 async function submitApplication() {
   successMessage.value = "";
   errorMessage.value = "";
+  const token = localStorage.getItem("token");
+  const student = JSON.parse(localStorage.getItem("student")) || {};
+  const payload = {
+    ...application,
+    student_id: student.id
+  };
   try {
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
     const response = await axios.post(
-      "https://admission-management-system-production-e65e.up.railway.app/admissions",
-      application
+      `${baseURL}/admissions`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
     successMessage.value = "Admission Submitted Successfully!";
     setTimeout(() => {
@@ -219,7 +231,7 @@ async function submitApplication() {
     }, 1200);
   } catch (error) {
     console.log(error);
-    errorMessage.value = "Failed to submit admission application.";
+    errorMessage.value = error.response?.data?.message || "Failed to submit admission application.";
   }
 }
 </script>

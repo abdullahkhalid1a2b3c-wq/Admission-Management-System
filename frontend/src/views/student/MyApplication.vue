@@ -78,8 +78,9 @@ const application = ref(null)
 async function loadApplication(){
   const token = localStorage.getItem("token");
   try {
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
     const response = await axios.get(
-      "https://admission-management-system-production-e65e.up.railway.app/students/my-application",
+      `${baseURL}/students/my-application`,
       {
         headers: {
           Authorization: `Bearer ${token}`

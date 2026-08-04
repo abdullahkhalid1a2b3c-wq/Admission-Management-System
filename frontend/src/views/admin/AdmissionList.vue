@@ -60,8 +60,14 @@ import axios from "axios";
 const admissions = ref([]);
 
 async function getAdmissions() {
+  const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
   try {
-    const response = await axios.get("https://admission-management-system-production-e65e.up.railway.app/admissions");
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    const response = await axios.get(`${baseURL}/admissions`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     admissions.value = response.data;
   } catch (error) {
     console.log(error);
@@ -69,8 +75,14 @@ async function getAdmissions() {
 }
 
 async function updateStatus(id, status) {
+  const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
   try {
-    await axios.patch(`https://admission-management-system-production-e65e.up.railway.app/admissions/${id}/status`, { status });
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    await axios.patch(`${baseURL}/admissions/${id}/status`, { status }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     getAdmissions();
   } catch (error) {
     console.log(error);

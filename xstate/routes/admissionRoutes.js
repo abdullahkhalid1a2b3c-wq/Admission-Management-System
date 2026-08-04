@@ -1,71 +1,110 @@
 const express = require("express");
 const { createActor } = require("xstate");
-
 const { admissionMachine } = require("../machines/admissionMachine");
+const { verifyToken, requireAdmin } = require("../middleware/authMiddleware");
+const { validateAdmissionSubmission, validateAdmissionAction } = require("../middleware/validatePayload");
+const admissionService = require("../services/admissionService");
 
 const router = express.Router();
 
-router.post("/approve", async (req,res)=>{
-
-    const actor=createActor(admissionMachine);
-
+// Helper to run admission machine approval/rejection actor
+const runAdmissionActor = (req, res, eventType, admissionId) => {
+    const actor = createActor(admissionMachine);
     actor.start();
 
     actor.send({
-
-        type:"APPROVE",
-
-        id:req.body.id
-
+        type: eventType,
+        id: admissionId,
+        user: req.user
     });
 
-    actor.subscribe(state=>{
+    const subscription = actor.subscribe((state) => {
+        if (state.matches("Approved") || state.matches("Rejected")) {
+            subscription.unsubscribe();
+            actor.stop();
 
-        if(
-
-            state.matches("Approved") ||
-
-            state.matches("Rejected")
-
-        ){
+            if (state.context.error) {
+                return res.status(400).json(state.context.result || { message: state.context.error });
+            }
 
             res.json(state.context.result);
-
         }
-
     });
+};
 
+// GET /admissions (Admin)
+router.get("/", verifyToken, requireAdmin, async (req, res) => {
+    try {
+        const data = await admissionService.getAdmissions(req.user);
+        res.json(data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json(error.response?.data || { message: error.message });
+    }
 });
-router.post("/reject", async (req,res)=>{
 
-    const actor=createActor(admissionMachine);
+// GET /admissions/merit-list (Admin)
+router.get("/merit-list", verifyToken, requireAdmin, async (req, res) => {
+    try {
+        const data = await admissionService.getMeritList(req.user);
+        res.json(data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json(error.response?.data || { message: error.message });
+    }
+});
 
-    actor.start();
+// GET /admissions/:id
+router.get("/:id", verifyToken, async (req, res) => {
+    try {
+        const data = await admissionService.getAdmissionById(req.params.id, req.user);
+        res.json(data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json(error.response?.data || { message: error.message });
+    }
+});
 
-    actor.send({
+// POST /admissions (Submit application)
+router.post("/", verifyToken, validateAdmissionSubmission, async (req, res) => {
+    try {
+        const payload = {
+            ...req.body,
+            student_id: req.body.student_id || req.user.id
+        };
+        const data = await admissionService.addAdmission(payload, req.user);
+        res.status(201).json(data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json(error.response?.data || { message: error.message });
+    }
+});
 
-        type:"REJECT",
+// PUT /admissions/:id (Update application details)
+router.put("/:id", verifyToken, requireAdmin, async (req, res) => {
+    try {
+        const data = await admissionService.updateAdmission(req.params.id, req.body, req.user);
+        res.json(data);
+    } catch (error) {
+        res.status(error.response?.status || 500).json(error.response?.data || { message: error.message });
+    }
+});
 
-        id:req.body.id
+// POST /admissions/approve (Admin)
+router.post("/approve", verifyToken, requireAdmin, validateAdmissionAction, (req, res) => {
+    const admissionId = req.body.id;
+    runAdmissionActor(req, res, "APPROVE", admissionId);
+});
 
-    });
+// POST /admissions/reject (Admin)
+router.post("/reject", verifyToken, requireAdmin, validateAdmissionAction, (req, res) => {
+    const admissionId = req.body.id;
+    runAdmissionActor(req, res, "REJECT", admissionId);
+});
 
-    actor.subscribe(state=>{
+// PATCH /admissions/:id/status (Admin)
+router.patch("/:id/status", verifyToken, requireAdmin, validateAdmissionAction, (req, res) => {
+    const admissionId = req.params.id;
+    const action = req.body.action || (req.body.status ? req.body.status.toUpperCase() : "APPROVE");
+    const eventType = action === "REJECT" || action === "REJECTED" ? "REJECT" : "APPROVE";
 
-        if(
-
-            state.matches("Approved") ||
-
-            state.matches("Rejected")
-
-        ){
-
-            res.json(state.context.result);
-
-        }
-
-    });
-
+    runAdmissionActor(req, res, eventType, admissionId);
 });
 
 module.exports = router;

@@ -63,8 +63,14 @@ import axios from "axios";
 const meritList = ref([]);
 
 async function getMeritList() {
+  const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
   try {
-    const response = await axios.get("https://admission-management-system-production-e65e.up.railway.app/admissions/merit-list");
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    const response = await axios.get(`${baseURL}/admissions/merit-list`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     meritList.value = response.data;
   } catch (error) {
     console.log(error);

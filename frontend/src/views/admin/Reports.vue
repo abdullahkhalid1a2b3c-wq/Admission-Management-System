@@ -110,14 +110,18 @@ const departments = ref([]);
 const eligibility = ref([]);
 
 async function loadReports() {
+  const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
   try {
-    const admissionResponse = await axios.get("https://admission-management-system-production-e65e.up.railway.app/reports/admission");
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    const headers = { Authorization: `Bearer ${token}` };
+
+    const admissionResponse = await axios.get(`${baseURL}/reports/admission`, { headers });
     admissionReport.value = admissionResponse.data;
 
-    const departmentResponse = await axios.get("https://admission-management-system-production-e65e.up.railway.app/reports/departments");
+    const departmentResponse = await axios.get(`${baseURL}/reports/departments`, { headers });
     departments.value = departmentResponse.data;
 
-    const eligibilityResponse = await axios.get("https://admission-management-system-production-e65e.up.railway.app/reports/eligibility");
+    const eligibilityResponse = await axios.get(`${baseURL}/reports/eligibility`, { headers });
     eligibility.value = eligibilityResponse.data;
   } catch (error) {
     console.log(error);

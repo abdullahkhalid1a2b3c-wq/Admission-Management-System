@@ -61,8 +61,14 @@ const approvedApplications = ref(0);
 const rejectedApplications = ref(0);
 
 async function loadStats() {
+  const token = localStorage.getItem("adminToken") || localStorage.getItem("token");
   try {
-    const response = await axios.get("https://admission-management-system-production-e65e.up.railway.app/dashboard");
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    const response = await axios.get(`${baseURL}/dashboard`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     totalStudents.value = response.data.totalStudents || 0;
     totalApplications.value = response.data.total || 0;
     pendingApplications.value = response.data.pending || 0;

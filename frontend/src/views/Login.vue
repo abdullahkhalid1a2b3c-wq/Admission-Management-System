@@ -98,19 +98,13 @@ async function loginStudent() {
 
   try {
 
-    // Request goes to XState Server
+    const baseURL = import.meta.env.VITE_XSTATE_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
     const response = await axios.post(
-
-      "https://clever-ambition-production-d00e.up.railway.app/login",
-
+      `${baseURL}/login`,
       {
-
         email: login.email,
-
         password: login.password
-
       }
-
     );
 
     // Save Login Data
