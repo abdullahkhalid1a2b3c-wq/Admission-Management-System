@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import adminRoutes from "./adminRoutes";
-import studentRoutes from "./studentRoutes";
+import adminRoutes from "@/router/adminRoutes.js";
+import studentRoutes from "@/router/studentRoutes.js";
 
-import AdmissionForm from "../views/AdmissionForm.vue";
+import AdmissionForm from "@/views/AdmissionForm.vue";
 
 const routes = [
 

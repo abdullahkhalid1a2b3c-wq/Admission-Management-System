@@ -6,6 +6,6 @@
 
 <script setup>
 
-import AdmissionForm from "../AdmissionForm.vue"
+import AdmissionForm from "@/views/AdmissionForm.vue";
 
 </script>

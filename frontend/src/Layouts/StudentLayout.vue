@@ -15,8 +15,8 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import StudentNavbar from "../components/student/StudentNavbar.vue";
-import StudentSidebar from "../components/student/StudentSidebar.vue";
+import StudentNavbar from "@/components/student/StudentNavbar.vue";
+import StudentSidebar from "@/components/student/StudentSidebar.vue";
 
 const route = useRoute();
 const isLoggedIn = ref(!!localStorage.getItem("token"));

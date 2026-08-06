@@ -15,8 +15,8 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import AdminNavbar from "../components/admin/AdminNavbar.vue";
-import AdminSidebar from "../components/admin/AdminSidebar.vue";
+import AdminNavbar from "@/components/admin/AdminNavbar.vue";
+import AdminSidebar from "@/components/admin/AdminSidebar.vue";
 
 const route = useRoute();
 const isAdminLoggedIn = ref(!!localStorage.getItem("adminToken"));

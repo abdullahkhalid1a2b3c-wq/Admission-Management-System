@@ -51,8 +51,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import DashboardCard from "../../components/admin/DashboardCard.vue";
-import RecentApplications from "../../components/admin/RecentApplications.vue";
+import DashboardCard from "@/components/admin/DashboardCard.vue";
+import RecentApplications from "@/components/admin/RecentApplications.vue";
 
 const totalStudents = ref(0);
 const totalApplications = ref(0);

@@ -1,14 +1,15 @@
 
-import Dashboard from "../views/admin/Dashboard.vue";
-import AdmissionList from "../views/admin/AdmissionList.vue";
-import AdmissionDetails from "../views/admin/AdmissionDetails.vue";
-import Reports from "../views/admin/Reports.vue";
-import Settings from "../views/admin/Settings.vue";
-import AdminLayout from "../Layouts/AdminLayout.vue";
-import AdminLogin from "../views/admin/AdminLogin.vue";
+import Dashboard from "@/views/admin/Dashboard.vue";
+import AdmissionList from "@/views/admin/AdmissionList.vue";
+import AdmissionDetails from "@/views/admin/AdmissionDetails.vue";
+import Reports from "@/views/admin/Reports.vue";
+import Settings from "@/views/admin/Settings.vue";
+import AdminLayout from "@/Layouts/AdminLayout.vue";
+import AdminLogin from "@/views/admin/AdminLogin.vue";
+import MeritList from "@/views/admin/MeritList.vue";
+import Profile from "@/views/admin/Profile.vue";
 
-import MeritList from "../views/admin/MeritList.vue";
-import Profile from "../views/admin/Profile.vue"
+
 export default {
     path: "/admin",
     component: AdminLayout,
