@@ -1,14 +1,5 @@
 
-import Dashboard from "@/views/admin/Dashboard.vue";
-import AdmissionList from "@/views/admin/AdmissionList.vue";
-import AdmissionDetails from "@/views/admin/AdmissionDetails.vue";
-import Reports from "@/views/admin/Reports.vue";
-import Settings from "@/views/admin/Settings.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import AdminLogin from "@/views/admin/AdminLogin.vue";
-import MeritList from "@/views/admin/MeritList.vue";
-import Profile from "@/views/admin/Profile.vue";
-
 
 export default {
     path: "/admin",
@@ -18,44 +9,43 @@ export default {
 
         {
             path: "dashboard",
-            component: Dashboard
+            component: () => import("@/views/admin/Dashboard.vue")
         },
 
         {
             path: "admissions",
-            component: AdmissionList
+            component: () => import("@/views/admin/AdmissionList.vue")
         },
 
         {
             path: "admissions/:id",
-            component: AdmissionDetails
+            component: () => import("@/views/admin/AdmissionDetails.vue")
         },
-
 
         {
             path: "reports",
-            component: Reports
+            component: () => import("@/views/admin/Reports.vue")
         },
 
         {
             path: "settings",
-            component: Settings
+            component: () => import("@/views/admin/Settings.vue")
         },
 
         {
             path: "login",
-            component : AdminLogin
+            component: () => import("@/views/admin/AdminLogin.vue")
         },
 
         {
             path: "merit-list",
-            component: MeritList
+            component: () => import("@/views/admin/MeritList.vue")
         },
 
         {
-            path: "Profile",
-            component: Profile
+            path: "profile",
+            component: () => import("@/views/admin/Profile.vue")
         }
 
     ]
-}
+}

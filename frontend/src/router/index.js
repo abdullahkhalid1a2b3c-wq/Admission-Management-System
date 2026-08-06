@@ -3,8 +3,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import adminRoutes from "@/router/adminRoutes.js";
 import studentRoutes from "@/router/studentRoutes.js";
 
-import AdmissionForm from "@/views/AdmissionForm.vue";
-
 const routes = [
 
     {
@@ -14,7 +12,7 @@ const routes = [
 
     {
         path: "/apply",
-        component: AdmissionForm
+        component: () => import("@/views/AdmissionForm.vue")
     },
 
     adminRoutes,
@@ -22,6 +20,7 @@ const routes = [
     studentRoutes
 
 ];
+
 
 const router = createRouter({
 

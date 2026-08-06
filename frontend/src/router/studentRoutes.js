@@ -1,11 +1,5 @@
 import StudentLayout from "@/Layouts/StudentLayout.vue";
 
-import StudentDashboard from "@/views/student/Dashboard.vue";
-import ApplyAdmission from "@/views/student/ApplyAdmission.vue";
-import MyApplication from "@/views/student/MyApplication.vue";
-import Profile from "@/views/student/Profile.vue";
-import Register from "@/views/Register.vue";
-import Login from "@/views/Login.vue";
 export default {
 
     path: "/student",
@@ -16,32 +10,32 @@ export default {
 
         {
             path: "dashboard",
-            component: StudentDashboard
+            component: () => import("@/views/student/Dashboard.vue")
         },
 
         {
             path: "apply",
-            component: ApplyAdmission
+            component: () => import("@/views/student/ApplyAdmission.vue")
         },
 
         {
             path: "application",
-            component: MyApplication
+            component: () => import("@/views/student/MyApplication.vue")
         },
 
         {
             path: "profile",
-            component: Profile
+            component: () => import("@/views/student/Profile.vue")
         },
 
         {
             path: "register",
-            component: Register
+            component: () => import("@/views/Register.vue")
          },
 
          {
-            path:"login",
-            component:Login
+            path: "login",
+            component: () => import("@/views/Login.vue")
          }
 
     ]
